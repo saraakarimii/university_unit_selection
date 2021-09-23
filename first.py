@@ -8,7 +8,6 @@ import file_handler
 logging.basicConfig(filename='app.log', filemode='a',format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 class Register:
-    user_Capacity=1250000
     def __init__(self,position,username,password,repeatpass):
         self.position=self.position_validation(position)
         self.username=username
@@ -24,11 +23,11 @@ class Register:
 
     def repeat_validation(self,repeatpass):
         if self.password!=repeatpass:
-            raise Exception
+            raise logging.error("repeat of password is not correct")
 
     def position_validation(self,position):
         if position not in range(1,4):
-            raise Exception
+            raise logging.warning("position should be 1 or 2 or 3")
     
     def code(self):
         currentDateTime = datetime.datetime.now()
@@ -46,7 +45,27 @@ class Register:
         if position==1:
             Register.code()
             print("you are registered as student")
+            logging.info("a student registered")
         if position==2:
             print("you are registered as Professor")
+            logging.info("a professor registered")
         if position==3:
             print("you are registered as head of education")
+            logging.info("a head of education registered")
+
+
+class Login:
+
+    def correction(self,username,password):
+        datas=file_handler.FileHandler.read_file()
+        a=hashlib.sha256(password.encode()).hexdigest()
+        for i in datas:
+            if i["username"]==username:
+                if i["password"]==a:
+                    print("login was successful")
+                    logging.info(f"{username} logged in successfully ")
+                    return True
+                else:
+                    print("wrong password")
+                    logging.warning(f"{username} face an unsuccessful logging in")
+                    return False
