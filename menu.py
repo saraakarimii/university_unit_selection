@@ -18,13 +18,21 @@ class MainMenu:
         
         while True:
             MainMenu.print_menu()
-            choice = input("Enter your choice: ")
-            action = choices.get(choice)
-            if choice:
-                action()
-                choice=False
-            else:
-                print(f"{choice} is not a valid choice.")
+            while True:
+                choice = input("Enter your choice: ")
+                action = choices.get(choice)
+                try:
+                    if choice:
+                        action()
+                        choice=False
+                    else:
+                        print(f"{choice} is not a valid choice.")
+                except TypeError as e:
+                    logging.error(e)
+                    continue
+                else:
+                    break
+            
 
 
     def register(self):
