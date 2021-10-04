@@ -1,0 +1,9 @@
+unit_name,n_unit,all_capacity,remaining_capacity
+math1,3,50,47
+math2,3,45,43
+Laboratory physics1,1,30,30
+Laboratory physics2,1,30,30
+physics1,3,50,50
+pysics 2,3,50,50
+computer,3,25,25
+electromagnetic,3,20,20
